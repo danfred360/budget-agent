@@ -1,0 +1,30 @@
+{
+  "name": "budget-agent",
+  "type": "module",
+  "author": "Dan Frederick",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "google-auth-library": "^9.14.2",
+    "google-spreadsheet": "^4.1.4",
+    "node-cron": "^3.0.3"
+  },
+  "volta": {
+    "node": "20.18.0",
+    "yarn": "1.22.22"
+  },
+  "devDependencies": {
+    "@types/node": "^22.8.6",
+    "@types/node-cron": "^3.0.11",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
