@@ -3,6 +3,7 @@
   "type": "module",
   "author": "Dan Frederick",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js"
