@@ -8,7 +8,9 @@
     "build": "webpack",
     "build:all": "yarn build",
     "build:budget": "cross-env AGENT_DIR=budget webpack",
+    "build:commander": "cross-env AGENT_DIR=commander webpack",
     "start:budget": "node dist/budget/bundle.js",
+    "start:commander": "node dist/commander/bundle.js",
     "lint": "eslint .",
     "test": "jest"
   },
@@ -31,7 +33,9 @@
     "dotenv": "^16.4.5",
     "google-auth-library": "^9.14.2",
     "google-spreadsheet": "^4.1.4",
-    "node-cron": "^3.0.3"
+    "node-cron": "^3.0.3",
+    "openai": "^4.73.0",
+    "zod": "^3.23.8"
   },
   "volta": {
     "node": "20.18.0",
