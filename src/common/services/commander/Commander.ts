@@ -1,5 +1,5 @@
 import ICommander, { Command, CommandResult } from "./ICommander";
-import ICommandExecutor, { ExecutionOptions, ExecutionResult } from "./ICommandExecutor";
+import ICommandExecutor, { ExecutionOptions } from "./ICommandExecutor";
 
 export default class Commander implements ICommander {
   private readonly commandExecutor: ICommandExecutor;
@@ -19,7 +19,7 @@ export default class Commander implements ICommander {
       throwOnError: true,
     };
 
-    const result: ExecutionResult = await this.commandExecutor.execute(executionOptions);
+    const result = await this.commandExecutor.execute(executionOptions);
     const { status, stdOut, stdErr } = result;
 
     return { status, stdOut, stdErr };

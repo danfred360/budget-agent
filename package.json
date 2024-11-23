@@ -8,7 +8,9 @@
     "build": "webpack",
     "build:all": "yarn build",
     "build:budget": "cross-env AGENT_DIR=budget webpack",
+    "build:commander": "cross-env AGENT_DIR=commander webpack",
     "start:budget": "node dist/budget/bundle.js",
+    "start:commander": "node dist/commander/bundle.js",
     "lint": "eslint .",
     "test": "jest"
   },

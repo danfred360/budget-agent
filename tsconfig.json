@@ -8,6 +8,9 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "sourceMap": true,
+    // "inlineSourceMap": false,
+    // "inlineSources": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
