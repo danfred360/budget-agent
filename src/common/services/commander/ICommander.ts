@@ -2,14 +2,14 @@ export default interface Commander {
   runCommand(command: Command, verify: boolean): Promise<CommandResult>;
 }
 
-export interface Command {
+export type Command = {
   command: string;
   args: string[];
   approved: boolean;
-}
+};
 
-export interface CommandResult {
+export type CommandResult = {
   status: number;
   stdOut: string;
   stdErr: string;
-}
+};
