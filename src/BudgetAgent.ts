@@ -1,6 +1,6 @@
-import BudgetMonitor from './BudgetMonitor.js';
-import PromptBuilder from './PromptBuilder.js';
-import OpenAIClient from './openAIClient.js';
+import BudgetMonitor from './BudgetMonitor';
+import PromptBuilder from './PromptBuilder';
+import OpenAIClient from './openAIClient';
 import fs from 'fs';
 
 export default class BudgetAgent {

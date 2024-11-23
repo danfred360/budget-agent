@@ -1,13 +1,6 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 
-interface TransactionRow {
-  Date: string;
-  Description: string;
-  Amount: string;
-  Category?: string;
-}
-
 export default class BudgetMonitor {
   private doc: GoogleSpreadsheet;
 
