@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import BudgetAgent from './BudgetAgent.js';
+import BudgetAgent from './BudgetAgent';
 import dotenv from 'dotenv';
 
 dotenv.config();
