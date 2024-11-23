@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "start": "node dist/bundle.js",
+    "build:all": "yarn build",
+    "build:budget": "cross-env AGENT_DIR=budget webpack",
+    "start:budget": "node dist/budget/bundle.js",
     "lint": "eslint .",
     "test": "jest"
   },
@@ -24,6 +26,7 @@
     }
   },
   "dependencies": {
+    "@eslint/js": "^9.15.0",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "google-auth-library": "^9.14.2",
@@ -35,13 +38,16 @@
     "yarn": "1.22.22"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.8.6",
     "@types/node-cron": "^3.0.11",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
+    "cross-env": "^7.0.3",
     "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-functional": "^7.1.0",
     "eslint-plugin-import": "^2.31.0",

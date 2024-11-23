@@ -1,10 +1,11 @@
-import cron from 'node-cron';
-import BudgetAgent from './BudgetAgent';
-import dotenv from 'dotenv';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import cron from "node-cron";
+import BudgetAgent from "./BudgetAgent";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const apiKey = process.env.OPENAI_API_KEY || '';
+const apiKey = process.env.OPENAI_API_KEY || "";
 const budgetAgent = new BudgetAgent(apiKey);
 
 budgetAgent.analyzeAndSuggest();

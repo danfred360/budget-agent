@@ -13,9 +13,9 @@ proof of concept app to experiment with building an ai agent. this agent analyze
 ```bash
 yarn install # install dependencies
 
-yarn build # transpile the typescript code
+yarn build:budget # transpile the typescript code
 
-yarn start # run the app
+yarn start:budget # run the app
 ```
 
 the script will create a `report.txt` and a `suggestions.txt` file in the root directory. it will also print the contents of those files to the console.
