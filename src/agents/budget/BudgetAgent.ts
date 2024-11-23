@@ -1,16 +1,16 @@
-import BudgetMonitor from './BudgetMonitor';
-import PromptBuilder from './PromptBuilder';
-import OpenAIClient from './openAIClient';
-import fs from 'fs';
+import BudgetMonitor from "./BudgetMonitor";
+import PromptBuilder from "../../common/services/PromptBuilder";
+import OpenAIClient from "../../common/clients/OpenAIClient";
+import fs from "fs";
 
 export default class BudgetAgent {
   private monitor: BudgetMonitor;
   private openaiClient: OpenAIClient;
 
   constructor(apiKey: string) {
-    const sheetId = process.env.GOOGLE_SHEET_ID || '';
+    const sheetId = process.env.GOOGLE_SHEET_ID || "";
     if (!sheetId) {
-      throw new Error('Google Sheet ID is not set in environment variables');
+      throw new Error("Google Sheet ID is not set in environment variables");
     }
     this.monitor = new BudgetMonitor(sheetId);
     this.openaiClient = new OpenAIClient(apiKey);
@@ -30,8 +30,7 @@ export default class BudgetAgent {
     console.log("Suggestions:", suggestions);
 
     // Save results if needed
-    fs.writeFileSync('report.txt', report);
-    fs.writeFileSync('suggestions.txt', suggestions);
+    fs.writeFileSync("report.txt", report);
+    fs.writeFileSync("suggestions.txt", suggestions);
   }
 }
-
