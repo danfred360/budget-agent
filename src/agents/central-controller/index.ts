@@ -1,4 +1,4 @@
-import Web from "./Web";
+import CentralController from "./CentralController";
 import Logger from "../../common/services/Logger";
 import OpenAIClient from "../../common/clients/OpenAIClient";
 import CommandGenerator from "../../common/services/commander/CommandGenerator";
@@ -11,6 +11,6 @@ const openAIClient = new OpenAIClient(apiKey);
 const commandGenerator = new CommandGenerator(openAIClient);
 const logger = new Logger();
 
-const web = new Web(commandGenerator, logger);
+const web = new CentralController(commandGenerator, logger);
 
 web.start();

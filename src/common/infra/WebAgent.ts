@@ -1,4 +1,4 @@
-import express, { Request, Response, Router } from "express";
+import express, { Request, Response, Router, Application } from "express";
 import axios from "axios";
 import ILogger from "../services/ILogger";
 
@@ -42,6 +42,10 @@ export default abstract class WebAgent {
     this.functions.push({ path, handler });
   }
 
+  protected getRegisteredFunctions(): RegisteredFunction[] {
+    return this.functions;
+  }
+
   protected registerRemoteAgent(name: string, url: string): void {
     this.logger.log(`Registering remote agent "${name}" at ${url}`);
     this.remoteAgents.push({ name, url });
@@ -53,7 +57,7 @@ export default abstract class WebAgent {
     });
 
     this.router.get("/remote-agents", (req, res) => {
-      res.json({ agents: this.remoteAgents });
+      res.json({ agents: this.remoteAgents.map((agent) => agent.name) });
     });
   }
 
@@ -63,6 +67,10 @@ export default abstract class WebAgent {
 
   error(message: string): void {
     this.logger.error(message);
+  }
+
+  getPort(): number {
+    return this.port;
   }
 
   protected async callRemoteAgent(agentName: string, endpoint: string, data: object): Promise<object> {
@@ -77,6 +85,10 @@ export default abstract class WebAgent {
 
     const response = await axios.post(url, data);
     return response.data;
+  }
+
+  protected getApp(): Application {
+    return this.app;
   }
 
   async start(): Promise<void> {

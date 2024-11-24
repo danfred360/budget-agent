@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import ICommandGenerator from "../../common/services/commander/ICommandGenerator";
 import ILogger from "../../common/services/Logger";
 
-export default class Web extends WebAgent {
+export default class CentralController extends WebAgent {
   private commandGenerator: ICommandGenerator;
 
   constructor(commandGenerator: ICommandGenerator, logger: ILogger) {

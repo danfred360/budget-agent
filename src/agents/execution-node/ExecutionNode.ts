@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import ICommander from "../../common/services/commander/ICommander";
 import ILogger from "../../common/services/Logger";
 
-export default class ExecuteAgent extends WebAgent {
+export default class ExecutionNode extends WebAgent {
   private commander: ICommander;
 
   constructor(commander: ICommander, logger: ILogger) {
