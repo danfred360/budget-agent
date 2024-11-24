@@ -4,30 +4,38 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version for the release'
+        description: "Version for the release"
         required: true
-        default: '1.0.0'
+        default: "1.0.0"
 
 jobs:
   build-arm-binary:
     name: Build ARM Binary for Execution Node
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: use volta to setup node and yarn
-        uses: volta-cli/action@v4
+      - name: Set up QEMU for ARM emulation
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm
 
-      - name: install dependencies
-        run: yarn install
+      - name: Create output directory
+        run: mkdir -p ./output
 
-      - name: build for ARM
-        run: yarn package:execution-node:for-pi
+      - name: Build ARM Binary in Docker
+        run: |
+          docker build -t execution-node-builder -f ./.github/workflows/execution-node-builder.Dockerfile .
+          docker run --rm \
+            --volume "$(pwd)/output:/app/output" \
+            --env VERSION=${{ github.event.inputs.version }} \
+            -t execution-node-builder \
+            build
 
-      # - name: Upload artifact
+      # - name: Upload ARM Binary
       #   uses: actions/upload-artifact@v3
       #   with:
       #     name: execution-node-binary
-      #     path: ./execution-node
+      #     path: ./output/execution-node
