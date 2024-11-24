@@ -8,4 +8,5 @@ const commandExecutor = new CommandExecutor();
 const commander = new Commander(commandExecutor);
 
 const executeAgent = new ExecutionNode(commander, logger);
+console.log("foo");
 executeAgent.start();
