@@ -11,17 +11,13 @@ on:
 jobs:
   build-arm-binary:
     name: Build ARM Binary for Execution Node
-    runs-on: ubuntu-latest
+    runs-on:
+      - os: ubuntu-22.04-arm
+        arch: arm64
 
     steps:
       - name: checkout code
         uses: actions/checkout@v3
-
-      - name: install QEMU and enable ARM emulation
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu qemu-user-static
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
       - name: use volta to setup node and yarn
         uses: volta-cli/action@v4
