@@ -12,29 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@v3
 
-      - name: Install Volta
-        run: |
-          curl https://get.volta.sh | bash
-          export PATH="$HOME/.volta/bin:$PATH"
+      - name: use volta to setup node and yarn
+        uses: volta-cli/action@v4
 
-      - name: Use Node.js and Yarn from Volta
-        run: |
-          volta install node
-          volta install yarn
-          node -v
-          yarn -v
-
-      - name: Install dependencies
+      - name: install dependencies
         run: yarn install
 
-      - name: Run lint
+      - name: lint
         run: yarn lint
 
-      - name: Run tests
+      - name: test
         run: yarn test
 
-      - name: Build the project
+      - name: build bundles
         run: yarn build

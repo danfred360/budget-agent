@@ -14,25 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@v3
 
-      - name: Install Volta
-        run: |
-          curl https://get.volta.sh | bash
-          export PATH="$HOME/.volta/bin:$PATH"
+      - name: use volta to setup node and yarn
+        uses: volta-cli/action@v4
 
-      - name: Use Node.js and Yarn from Volta
-        run: |
-          volta install node
-          volta install yarn
-          node -v
-          yarn -v
-
-      - name: Install dependencies
+      - name: install dependencies
         run: yarn install
 
-      - name: Build Central Controller
+      - name: build bundle
         run: yarn build:web
 
       # - name: Log in to DockerHub
@@ -41,7 +32,7 @@ jobs:
       #     username: ${{ secrets.DOCKER_USERNAME }}
       #     password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker Image
+      - name: build image
         run: |
           docker build -t central-controller:${{ github.event.inputs.version }} ./dist/central-controller
           docker tag central-controller:${{ github.event.inputs.version }} mydockerhub/central-controller:${{ github.event.inputs.version }}

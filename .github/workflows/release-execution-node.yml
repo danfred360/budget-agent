@@ -14,31 +14,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@v3
 
-      - name: Install QEMU and Enable ARM Emulation
+      - name: install QEMU and enable ARM emulation
         run: |
           sudo apt-get update
           sudo apt-get install -y qemu qemu-user-static
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
-      - name: Install Volta
-        run: |
-          curl https://get.volta.sh | bash
-          export PATH="$HOME/.volta/bin:$PATH"
+      - name: use volta to setup node and yarn
+        uses: volta-cli/action@v4
 
-      - name: Use Node.js and Yarn from Volta
-        run: |
-          volta install node
-          volta install yarn
-          node -v
-          yarn -v
-
-      - name: Install dependencies
+      - name: install dependencies
         run: yarn install
 
-      - name: Build for ARM
+      - name: build for ARM
         run: yarn package:execution-node:for-pi
 
       # - name: Upload artifact
