@@ -3,11 +3,15 @@ import { Request, Response } from "express";
 import ICommander from "../../common/services/commander/ICommander";
 import ILogger from "../../common/services/Logger";
 
+export type ExecuteAgentSettings = {
+  port: number;
+};
+
 export default class ExecutionNode extends WebAgent {
   private commander: ICommander;
 
-  constructor(commander: ICommander, logger: ILogger) {
-    super(logger, 4000);
+  constructor(commander: ICommander, logger: ILogger, settings: ExecuteAgentSettings) {
+    super(logger, settings.port);
     this.commander = commander;
   }
 

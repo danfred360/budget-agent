@@ -1,12 +1,17 @@
 name: Release Central Controller
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/agents/central-controller/**'
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version for the release'
-        required: true
-        default: '1.0.0'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-central-controller
+  VERSION: 1.0.0
 
 jobs:
   build-docker-image:
@@ -14,28 +19,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: use volta to setup node and yarn
+      - name: Use Volta to Setup Node and Yarn
         uses: volta-cli/action@v4
 
-      - name: install dependencies
+      - name: Install dependencies
         run: yarn install
 
-      - name: build bundle
-        run: yarn build:web
+      - name: Build Central Controller Bundle
+        run: yarn build:central-controller
 
-      # - name: Log in to DockerHub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: build image
-        run: |
-          docker build -t central-controller:${{ github.event.inputs.version }} ./dist/central-controller
-          docker tag central-controller:${{ github.event.inputs.version }} mydockerhub/central-controller:${{ github.event.inputs.version }}
-
-      # - name: Push Docker Image
-      #   run: docker push mydockerhub/central-controller:${{ github.event.inputs.version }}
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          dockerfile: .github/workflows/central-controller.Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}

@@ -3,14 +3,19 @@ import { Request, Response } from "express";
 import ICommandGenerator from "../../common/services/commander/ICommandGenerator";
 import ILogger from "../../common/services/Logger";
 
+export type CentralControllerSettings = {
+  port: number;
+  executeAgentUrl: string;
+};
+
 export default class CentralController extends WebAgent {
   private commandGenerator: ICommandGenerator;
 
-  constructor(commandGenerator: ICommandGenerator, logger: ILogger) {
-    super(logger);
+  constructor(commandGenerator: ICommandGenerator, logger: ILogger, settings: CentralControllerSettings) {
+    super(logger, settings.port);
     this.commandGenerator = commandGenerator;
 
-    this.registerRemoteAgent("ExecuteAgent", "http://localhost:4000");
+    this.registerRemoteAgent("ExecuteAgent", settings.executeAgentUrl);
   }
 
   protected registerRoutes(): void {

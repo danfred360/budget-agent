@@ -96,4 +96,9 @@ export default abstract class WebAgent {
       this.logger.log(`Agent started on port ${this.port}`);
     });
   }
+
+  async stop(): Promise<void> {
+    this.logger.log("Stopping agent...");
+    this.app.removeAllListeners();
+  }
 }
