@@ -11,17 +11,29 @@ on:
 jobs:
   build-arm-binary:
     name: Build ARM Binary for Execution Node
-    runs-on: qemu-arm
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'yarn'
+      - name: Install QEMU and Enable ARM Emulation
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu qemu-user-static
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+
+      - name: Install Volta
+        run: |
+          curl https://get.volta.sh | bash
+          export PATH="$HOME/.volta/bin:$PATH"
+
+      - name: Use Node.js and Yarn from Volta
+        run: |
+          volta install node
+          volta install yarn
+          node -v
+          yarn -v
 
       - name: Install dependencies
         run: yarn install
