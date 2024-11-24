@@ -1,0 +1,36 @@
+name: Release Execution Node
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version for the release'
+        required: true
+        default: '1.0.0'
+
+jobs:
+  build-arm-binary:
+    name: Build ARM Binary for Execution Node
+    runs-on: qemu-arm
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build for ARM
+        run: yarn package:execution-node:for-pi
+
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: execution-node-binary
+      #     path: ./execution-node

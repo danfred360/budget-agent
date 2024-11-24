@@ -1,0 +1,44 @@
+name: Release Central Controller
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version for the release'
+        required: true
+        default: '1.0.0'
+
+jobs:
+  build-docker-image:
+    name: Build and Push Docker Image for Central Controller
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Central Controller
+        run: yarn build:web
+
+      # - name: Log in to DockerHub
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t central-controller:${{ github.event.inputs.version }} ./dist/central-controller
+          docker tag central-controller:${{ github.event.inputs.version }} mydockerhub/central-controller:${{ github.event.inputs.version }}
+
+      # - name: Push Docker Image
+      #   run: docker push mydockerhub/central-controller:${{ github.event.inputs.version }}
