@@ -17,11 +17,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'yarn'
+      - name: Install Volta
+        run: |
+          curl https://get.volta.sh | bash
+          export PATH="$HOME/.volta/bin:$PATH"
+
+      - name: Use Node.js and Yarn from Volta
+        run: |
+          volta install node
+          volta install yarn
+          node -v
+          yarn -v
 
       - name: Install dependencies
         run: yarn install
