@@ -1,4 +1,4 @@
-import { Command } from "../../common/services/commander/ICommander";
+import { Command } from "./ICommander";
 
 export default interface ICommandGenerator {
   generateCommand(options: CommandGeneratorOptions): Promise<Command>;

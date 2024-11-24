@@ -9,8 +9,10 @@
     "build:all": "yarn build",
     "build:budget": "cross-env AGENT_DIR=budget webpack",
     "build:commander": "cross-env AGENT_DIR=commander webpack",
+    "build:web": "cross-env AGENT_DIR=web webpack",
     "start:budget": "node dist/budget/bundle.js",
     "start:commander": "node dist/commander/bundle.js",
+    "start:web": "node dist/web/bundle.js",
     "lint": "eslint .",
     "test": "jest"
   },
@@ -31,6 +33,7 @@
     "@eslint/js": "^9.15.0",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "google-auth-library": "^9.14.2",
     "google-spreadsheet": "^4.1.4",
     "node-cron": "^3.0.3",
@@ -43,6 +46,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
+    "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.8.6",
     "@types/node-cron": "^3.0.11",

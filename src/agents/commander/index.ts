@@ -1,5 +1,5 @@
 import OpenAIClient from "../../common/clients/OpenAIClient";
-import CommandGenerator from "./CommandGenerator";
+import CommandGenerator from "../../common/services/commander/CommandGenerator";
 import CommandExecutor from "../../common/services/commander/CommandExecutor";
 import Commander from "../../common/services/commander/Commander";
 import dotenv from "dotenv";

@@ -1,5 +1,5 @@
 import CommandGenerator from "./CommandGenerator";
-import OpenAIClient from "../../common/clients/OpenAIClient";
+import OpenAIClient from "../../clients/OpenAIClient";
 import dotenv from "dotenv";
 
 xit("generates a command", async () => {
