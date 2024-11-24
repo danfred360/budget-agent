@@ -41,8 +41,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: .
-          dockerfile: .github/workflows/central-controller.Dockerfile
+          context: ./src/agents/central-controller
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
