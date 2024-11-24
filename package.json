@@ -10,9 +10,11 @@
     "build:budget": "cross-env AGENT_DIR=budget webpack",
     "build:commander": "cross-env AGENT_DIR=commander webpack",
     "build:web": "cross-env AGENT_DIR=web webpack",
+    "build:executor": "cross-env AGENT_DIR=executor webpack",
     "start:budget": "node dist/budget/bundle.js",
     "start:commander": "node dist/commander/bundle.js",
     "start:web": "node dist/web/bundle.js",
+    "start:executor": "node dist/executor/bundle.js",
     "lint": "eslint .",
     "test": "jest"
   },

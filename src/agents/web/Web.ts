@@ -9,15 +9,13 @@ export default class Web extends WebAgent {
   constructor(commandGenerator: ICommandGenerator, logger: ILogger) {
     super(logger);
     this.commandGenerator = commandGenerator;
+
+    this.registerRemoteAgent("ExecuteAgent", "http://localhost:4000");
   }
 
   protected registerRoutes(): void {
     this.registerFunction("/generate-command", this.generateCommandHandler.bind(this));
-    this.registerFunction("/hello", this.helloHandler);
-  }
-
-  private helloHandler(req: Request, res: Response): void {
-    res.send("Hello, world!");
+    this.registerFunction("/execute-command", this.executeCommandHandler.bind(this));
   }
 
   private async generateCommandHandler(req: Request, res: Response): Promise<void> {
@@ -34,6 +32,23 @@ export default class Web extends WebAgent {
     } catch (error) {
       this.log(`Error generating command: ${error}`);
       res.status(500).send({ error: "Failed to generate command." });
+    }
+  }
+
+  private async executeCommandHandler(req: Request, res: Response): Promise<void> {
+    try {
+      const { command, args, approved } = req.body;
+
+      const result = await this.callRemoteAgent("ExecuteAgent", "/execute", {
+        command,
+        args,
+        approved,
+      });
+
+      res.status(200).send(result);
+    } catch (error) {
+      this.log(`Error calling ExecuteAgent: ${error}`);
+      res.status(500).send({ error: "Failed to execute command via remote agent." });
     }
   }
 }
