@@ -1,6 +1,6 @@
 import ICommandGenerator, { CommandGeneratorOptions } from "./ICommandGenerator";
-import { Command } from "../../common/services/commander/ICommander";
-import IOpenAIClient from "../../common/clients/IOpenAIClient";
+import { Command } from "./ICommander";
+import IOpenAIClient from "../../clients/IOpenAIClient";
 import { z } from "zod";
 
 export default class CommandGenerator implements ICommandGenerator {
