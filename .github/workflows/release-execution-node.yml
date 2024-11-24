@@ -1,12 +1,15 @@
 name: Release Execution Node
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/agents/execution-node/**'
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Version for the release"
-        required: true
-        default: "1.0.0"
+
+env:
+  VERSION: 1.0.0
 
 jobs:
   build-arm-binary:
@@ -32,7 +35,7 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/arm/v7 \
-            --build-arg VERSION=${{ github.event.inputs.version }} \
+            --build-arg VERSION=${{ env.VERSION }} \
             -o type=local,dest=./output \
             -t execution-node-builder:latest \
             -f ./.github/workflows/execution-node-builder.Dockerfile .
