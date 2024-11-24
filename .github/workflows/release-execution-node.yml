@@ -17,25 +17,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up QEMU for ARM emulation
+      - name: Set up QEMU and Buildx
         uses: docker/setup-qemu-action@v2
         with:
-          platforms: arm
+          platforms: linux/arm/v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Create output directory
         run: mkdir -p ./output
 
-      - name: Build ARM Binary in Docker
+      - name: Build ARM Binary with Buildx
         run: |
-          docker build -t execution-node-builder -f ./.github/workflows/execution-node-builder.Dockerfile .
-          docker run --rm \
-            --volume "$(pwd)/output:/app/output" \
-            --env VERSION=${{ github.event.inputs.version }} \
-            -t execution-node-builder \
-            build
+          docker buildx build \
+            --platform linux/arm/v7 \
+            --build-arg VERSION=${{ github.event.inputs.version }} \
+            -o type=local,dest=./output \
+            -t execution-node-builder:latest \
+            -f ./.github/workflows/execution-node-builder.Dockerfile .
 
-      # - name: Upload ARM Binary
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: execution-node-binary
-      #     path: ./output/execution-node
+      - name: Upload ARM Binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: execution-node-binary
+          path: ./output/execution-node
