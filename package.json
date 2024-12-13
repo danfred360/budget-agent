@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "build:web": "cross-env AGENT_DIR=central-controller webpack",
+    "build:central-controller": "cross-env AGENT_DIR=central-controller webpack",
     "build:execution-node": "cross-env AGENT_DIR=execution-node webpack",
     "package:execution-node:for-pi": "yarn build:execution-node && pkg dist/execution-node/bundle.js --targets node16-linux-armv7 --output execution-node",
     "start:central-controller": "node dist/central-controller/bundle.js",
