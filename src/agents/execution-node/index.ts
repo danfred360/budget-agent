@@ -7,6 +7,7 @@ const logger = new Logger();
 const commandExecutor = new CommandExecutor();
 const commander = new Commander(commandExecutor);
 
+console.log("foo bar");
 const args = process.argv.slice(2);
 let port = parseInt(process.env.PORT || "4000");
 
